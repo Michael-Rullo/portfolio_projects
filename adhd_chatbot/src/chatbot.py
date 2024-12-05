@@ -6,7 +6,7 @@ class Api:
         
         self.client = OpenAI(api_key= api_key)
         self.client.files.create(
-        file=open(r"adhd_chatbot\src\ADHD_training_set.jsonl", "rb"),
+        file=open("adhd_chatbot\src\ADHD_training_set", "rb"),
         purpose= "fine-tune"
         )
     
