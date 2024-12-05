@@ -22,7 +22,7 @@ class Controller:
         #     st.session_state.language = ''
         
         with st.sidebar:
-            tts_switch = st.toggle('Text-to-Speech')
+            # tts_switch = st.toggle('Text-to-Speech')
             openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
             model = st.sidebar.selectbox(label='Model', options= ['gpt-4o-mini', 'gpt-4o', 'gpt-4-turbo', 'o1-preview'])
             # language = st.sidebar.selectbox(label= 'Language', options= ['en', 'fr', 'es'])
