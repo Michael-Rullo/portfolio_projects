@@ -1,11 +1,13 @@
 import streamlit as st
 from src.chatbot import Api
+from src.tts import Tts
 
 class Controller:
     
     def __init__(self):
         
         self.api = None
+        self.tts = Tts()
     
     def mainloop(self):
         
