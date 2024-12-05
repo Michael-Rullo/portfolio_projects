@@ -30,7 +30,7 @@ class Controller:
             )
 
         for message in st.session_state.messages:
-            if not st.session_state.messages["role"] == "system":
+            if not message["role"] == "system":
                 with st.chat_message(message["role"]):
                     st.markdown(message["content"])
 
