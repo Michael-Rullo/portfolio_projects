@@ -18,14 +18,14 @@ class Controller:
         if "messages" not in st.session_state:
             st.session_state.messages = []
             
-        # if 'language' not in st.session_state:
-        #     st.session_state.language = ''
+        if 'language' not in st.session_state:
+            st.session_state.language = ''
         
         with st.sidebar:
-            # tts_switch = st.toggle('Text-to-Speech')
+            tts_switch = st.toggle('Text-to-Speech')
             openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
             model = st.sidebar.selectbox(label='Model', options= ['gpt-4o-mini', 'gpt-4o', 'gpt-4-turbo', 'o1-preview'])
-            # language = st.sidebar.selectbox(label= 'Language', options= ['en', 'fr', 'es'])
+            language = st.sidebar.selectbox(label= 'Language', options= ['en', 'fr', 'es'])
 
         for message in st.session_state.messages:
             with st.chat_message(message["role"]): st.markdown(message["content"])
@@ -43,12 +43,12 @@ class Controller:
                     {"role" : "user", "content" : user_input}
                 )
                 
-                # if tts_switch:
-                #     self.tts.texttospeech(st.session_state.messages)
+                if tts_switch:
+                    self.tts.texttospeech(st.session_state.messages)
                 
                 st.session_state.messages = api.chat(model, st.session_state.messages)
                 
-                # if tts_switch:
-                #     self.tts.texttospeech(st.session_state.messages)
+                if tts_switch:
+                    self.tts.texttospeech(st.session_state.messages)
                 
                 st.chat_message("assistant").markdown(st.session_state.messages[-1]["content"])
