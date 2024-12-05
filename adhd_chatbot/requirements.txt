@@ -2,3 +2,5 @@ openai
 streamlit
 streamlit_TTS
 pyttsx3
+eSPeak
+eSpeak-ng
