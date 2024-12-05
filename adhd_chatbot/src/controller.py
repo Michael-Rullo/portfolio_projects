@@ -1,13 +1,11 @@
 import streamlit as st
 from src.chatbot import Api
-from src.tts import Tts
 
 class Controller:
     
     def __init__(self):
         
         self.api = None
-        self.tts = Tts()
     
     def mainloop(self):
         
@@ -22,13 +20,19 @@ class Controller:
             st.session_state.language = ''
         
         with st.sidebar:
-            tts_switch = st.toggle('Text-to-Speech')
             openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
             model = st.sidebar.selectbox(label='Model', options= ['gpt-4o-mini', 'gpt-4o', 'gpt-4-turbo', 'o1-preview'])
             language = st.sidebar.selectbox(label= 'Language', options= ['en', 'fr', 'es'])
+        
+        if language:
+            st.session_state.messages.append(
+                {"role" : "system", "content" : f"From now on you will only respond in this language: {language}. Unless you are instructed again to do otherwise"}
+            )
 
         for message in st.session_state.messages:
-            with st.chat_message(message["role"]): st.markdown(message["content"])
+            if not st.session_state.messages["role"] == "system":
+                with st.chat_message(message["role"]):
+                    st.markdown(message["content"])
 
         user_input = st.chat_input("Ask Away (about adhd)")
         
@@ -43,12 +47,6 @@ class Controller:
                     {"role" : "user", "content" : user_input}
                 )
                 
-                if tts_switch:
-                    self.tts.texttospeech(st.session_state.messages)
-                
                 st.session_state.messages = api.chat(model, st.session_state.messages)
-                
-                if tts_switch:
-                    self.tts.texttospeech(st.session_state.messages)
                 
                 st.chat_message("assistant").markdown(st.session_state.messages[-1]["content"])
