@@ -1,2 +1,0 @@
-this_thing = {"meta": {"code": 200},"response": {"holidays": [{"name": "Name of holiday goes here","description": "Description of holiday goes here","date": {"iso": "2018-12-31","datetime": {"year": 2018,"month": 12,"day": 31}},"type": ["Type of Observance goes here"]}]}}
-print(this_thing['response']['holidays'])
